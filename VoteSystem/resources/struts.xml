@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<!-- 交给spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!--国际化语言文件编码-->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!--国际化-->
+	<constant name="struts.custom.i18n.resources" value="i18n.message" />
+	<!-- action的后缀 -->
+	<constant name="struts.action.extension" value="action,do" />
+	
+	<package name="login" extends="struts-default" namespace="/">
+		<action name="login" class="loginAction" method="login">
+			<result name="success">admin/addvote.jsp</result>
+			<result name="input">index.jsp</result>
+		</action>
+	</package>
+	
+	<package name="addvote" extends="struts-default" namespace="/">
+		<action name="addVote" class="addVoteAction" method="addVote">
+			<result name="success">welcome.jsp</result>
+			<result name="input">index.jsp</result>
+		</action>
+	</package>
+
+	<!-- <include file="struts/struts-jbpm.xml" />-->
+</struts>

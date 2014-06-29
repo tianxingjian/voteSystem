@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:hibernate.properties</value>
+		</property>
+	</bean>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="jdbcUrl" value="${hibernate.connection.url}" />
+		<property name="driverClass" value="${hibernate.connection.driver_class}" />
+		<property name="user" value="${hibernate.connection.username}" />
+		<property name="password" value="${hibernate.connection.password}" />
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="maxStatements" value="${c3p0.maxStatements}" />
+		<property name="numHelperThreads" value="${c3p0.numHelperThreads}" />
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>cn.vote.model.Users</value>
+				<value>cn.vote.model.Voteinfo</value>
+				<value>cn.vote.model.Voteitem</value>
+				<value>cn.vote.model.Votetheme</value>
+			</list>
+		</property>
+		<!-- <property name="mappingResources">
+			<list>
+				<value>jbpm.repository.hbm.xml</value>
+                <value>jbpm.execution.hbm.xml</value>
+                <value>jbpm.history.hbm.xml</value>
+                <value>jbpm.task.hbm.xml</value>
+                <value>jbpm.identity.hbm.xml</value>          
+			</list>
+		</property>
+		 -->
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="is*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="get*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="find*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="list*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="query*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="load*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="check*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="translateCode*" read-only="true"
+				propagation="SUPPORTS" />
+			<tx:method name="show*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="*"  propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="execution(* cn.com.myjbpm.center.service.impl.*.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor
+			pointcut="execution(* cn.com.*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+</beans>
