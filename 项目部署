@@ -1,0 +1,21 @@
+###################################################################################
+#######                     VoteSystem 部署到tomcat                         #######              
+###################################################################################
+
+方法一：
+1.将VoteSystem目录下的VoteSystem.war文件拷贝到tomcat安装目录的webapps下，并确保没有同名目录，如"VoteSystem";
+2.启动tomcate，打开浏览器输入http://localhost:8080/VoteSystem/就可以进入到投票系统的登录页面。
+
+方法二：
+1.在tomcat安装目录下的"/conf/Catalina/localhost"目录下新建VoteSystem.xml文件，并输入以下内容：
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" docBase="/**/VoteSystem/WebContent" path="/VoteSystem"/>
+将"**"改为VoteSystem源码目录即可;
+2.启动tomcate，打开浏览器输入http://localhost:8080/VoteSystem/就可以进入到投票系统的登录页面。
+
+方法三：（未尝试）
+1.打开tomcat目录"conf"下的server.xml;
+2.在server.xml中的<Host></Host>标签中增加以下一行配置：
+<Context docBase="/**/VoteSystem"path="/VoteSystem"reloadable="true"/> 
+3.启动tomcate，打开浏览器输入http://localhost:8080/VoteSystem/就可以进入到投票系统的登录页面。
+

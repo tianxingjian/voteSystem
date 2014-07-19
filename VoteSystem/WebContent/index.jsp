@@ -26,15 +26,15 @@
 </head>
 <body>
 		<div id="container">
-			<form action="login.do">
+			<form name="frmLogin" action="login.do" method="post">
 				<div class="login">用户登录</div>
 				<div class="username-text">一卡通账号:</div>
 				<div class="username-field">
-					<input type="text" name="username" value="2200805132" />
+					<input type="text" name="username" value="" />
 				</div>
 				<div class="password-text">一卡通密码:</div>
 				<div class="password-field">
-					<input type="password" name="password" value="203050" />
+					<input type="password" name="password" value="" />
 				</div>
 				<input type="submit" name="submit" value="登陆" onclick="return validateLogin();" />
 			</form>

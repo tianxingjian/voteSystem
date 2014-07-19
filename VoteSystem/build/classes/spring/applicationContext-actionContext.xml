@@ -9,4 +9,5 @@
 
 	<bean id="loginAction" class="cn.vote.action.LoginAction" scope="prototype"/>
 	<bean id="addVoteAction" class="cn.vote.action.AddVoteAction" scope="prototype"/>
+	<bean id="voteAction" class="cn.vote.action.VoteAction" scope="prototype"/>
 </beans> 

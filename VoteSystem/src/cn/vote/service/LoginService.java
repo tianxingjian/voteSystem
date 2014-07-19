@@ -1,9 +1,7 @@
 package cn.vote.service;
 
-import org.springframework.ui.context.Theme;
-
-import cn.vote.model.Users;
-import cn.vote.model.Votetheme;
+import cn.vote.table.Users;
+import cn.vote.table.Votetheme;
 
 
 public interface LoginService {

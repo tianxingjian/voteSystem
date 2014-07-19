@@ -1,0 +1,16 @@
+#####################################################
+##              sql脚本文件导入数据库               ##  
+#####################################################
+
+vote.sql导入mysql
+方法一：
+1.启动Mysql数据库
+2.创建数据库：CREATE DATABASE IF NOT EXISTS `vote`;
+3.使用所创建的数据库：use vote;
+4.将vote.sql脚本中得创建表的脚本拷贝出来逐条执行。包括"users"、"votetheme"、"voteitem"和"voteinfo"。
+
+方法二：
+使用数据导入命令一次性导入到mysql中：
+mysql -uroot -p123456 < /home/nutch04/Documents/投票系统/database/vote.sql
+注:root和123456分别为数据库连接用户名和密码
+

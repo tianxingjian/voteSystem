@@ -5,8 +5,9 @@
 <struts>
 	<package name="jbpm_login" extends="struts-default" namespace="/">
 		<action name="login" class="loginAction" method="login">
-			<result name="success">/jsp/main.jsp</result>
-			<result name="input">index.jsp</result>
+			<result name="success">welcome.jsp</result>
+			<result name="ERROR">index.jsp</result>
+			
 		</action>
 	</package>
 </struts>

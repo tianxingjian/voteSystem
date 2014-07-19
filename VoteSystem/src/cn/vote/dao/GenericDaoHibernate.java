@@ -10,13 +10,10 @@ import org.hibernate.SessionFactory;
 
 public class GenericDaoHibernate<T extends Serializable, PK extends Serializable> implements GenericDAO<T, PK> {
 
-	private Class<T> entityClass;
+
 
 	public GenericDaoHibernate() {
 		
-	}
-	public GenericDaoHibernate(Class<T> clazz) {
-		this.entityClass = clazz;
 	}
 	
 	@Resource
@@ -37,19 +34,8 @@ public class GenericDaoHibernate<T extends Serializable, PK extends Serializable
 		sessionFactory.getCurrentSession().update(t);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public T queryById(PK id) {
-		return (T) sessionFactory.getCurrentSession().get(entityClass, id);
-	}
 
-	@Override
-	public List<T> queryAll() {
-		System.out.println("baicai: + " + sessionFactory);
-		System.out.println("nimei: " + sessionFactory.getCurrentSession());
-		String hql = "from " + entityClass.getSimpleName();
-		return queryForList(hql, null);
-	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -93,10 +79,16 @@ public class GenericDaoHibernate<T extends Serializable, PK extends Serializable
 		}
 	}
 	
-	public Class<T> getEntityClass() {
-		return entityClass;
+
+	@Override
+	public T queryById(PK id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	public void setEntityClass(Class<T> entityClass) {
-		this.entityClass = entityClass;
+
+	@Override
+	public List<T> queryAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
