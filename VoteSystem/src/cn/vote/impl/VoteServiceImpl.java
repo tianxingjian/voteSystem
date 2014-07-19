@@ -12,6 +12,7 @@ public class VoteServiceImpl extends GenericDaoHibernate implements VoteService 
 	@Override
 	public Votetheme addVote(Votetheme votetheme) {
 		Integer theme = (Integer)this.insert(votetheme);
+		this.setEntityClass(Votetheme.class);
 		Votetheme newVote = (Votetheme)this.queryById(theme);
 		List<Voteitem> items = votetheme.getVoteitems();
 		if(items != null && items.size() > 0){

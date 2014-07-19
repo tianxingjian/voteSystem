@@ -17,7 +17,7 @@
 	
 	<package name="login" extends="struts-default" namespace="/">
 		<action name="login" class="loginAction" method="login">
-			<result name="success">admin/addvote.jsp</result>
+			<result name="success">welcome.jsp</result>
 			<result name="input">index.jsp</result>
 		</action>
 	</package>
@@ -25,7 +25,7 @@
 	<package name="addvote" extends="struts-default" namespace="/">
 		<action name="addVote" class="addVoteAction" method="addVote">
 			<result name="success">welcome.jsp</result>
-			<result name="input">index.jsp</result>
+			<result name="input">admin/addvote.jsp</result>
 		</action>
 	</package>
 

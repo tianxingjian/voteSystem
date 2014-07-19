@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import cn.vote.model.Votetheme;
 import cn.vote.service.VoteService;
+import cn.vote.timer.Timer;
+import cn.vote.util.StatusConst;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,13 +22,14 @@ public class AddVoteAction extends ActionSupport {
 	private VoteService voteService;
 	
 	public String addVote(){
-		vote.setCreatetime("2014-06-29 00:00:00");
-		vote.setStatus("New");
+		vote.setCreatetime(Timer.getCurrentTime());
+		vote.setStatus(StatusConst.NEW);
 		Votetheme newVote = voteService.addVote(vote);
 		if(newVote != null && newVote.getId() != null){
 			logger.info("addVote sucess: " + newVote.getId());
+			return SUCCESS;
 		}
-		return SUCCESS;
+		return INPUT;
 	}
 
 	public Votetheme getVote() {

@@ -92,4 +92,11 @@ public class GenericDaoHibernate<T extends Serializable, PK extends Serializable
 			query.setParameter(i, params[i]);
 		}
 	}
+	
+	public Class<T> getEntityClass() {
+		return entityClass;
+	}
+	public void setEntityClass(Class<T> entityClass) {
+		this.entityClass = entityClass;
+	}
 }
